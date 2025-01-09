@@ -1,9 +1,15 @@
 from django.shortcuts import render , HttpResponse
 import random
+from posts.models import Post
+
 
 def main_view(request):
-    return HttpResponse(f"Hello, world! {random.randint(1,100)}")
-
-
-def html_view(request):
     return render(request,'main.html')
+
+
+def posts_list_view(request):
+    posts = Post.objects.all()
+    return render(request,'posts_list.html',context = {'posts':posts})
+
+
+
