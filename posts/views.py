@@ -37,7 +37,7 @@ def posts_list_view(request):
 
         posts = posts[start:end]
 
-        context_data = {'posts': posts,'search_form': search_form, max_pages:range(1,max_pages+1)}
+        context_data = {'posts': posts,'search_form': search_form,'max_pages':range(1,max_pages+1)}
 
         return render(
             request,

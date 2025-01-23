@@ -22,7 +22,7 @@
     <div style="display: flex; justify-content: center; margin-bottom: 20px; margin-top: 20px;">
         {%for i in max_pages%}
             {%if request.GET%}
-                <a href="{{request.get_full_path}}&page={{i}}" class="btn btn-primary">{{i}}</a>
+                <a href="?&page={{i}}" class="btn btn-secondary">{{i}}</a>
             {% else %}
                 <a href="/posts/?page{{i}}" class="btn btn-primary">{{i}}</a>
             {%endif%}
