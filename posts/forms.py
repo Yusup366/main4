@@ -1,6 +1,6 @@
 from django import forms
 from posts.models import Post
-
+from posts.models import Category
 
 class PostCreateForm(forms.ModelForm):
     class Meta:
@@ -19,3 +19,20 @@ class PostCreateForm(forms.ModelForm):
 
 
 
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=100,required=False,
+                             widget=forms.TextInput(attrs={'placeholder':'Search'}),
+    )
+    category = forms.ModelChoiceField(queryset=Category.objects.all(),
+                                      required=False, widget=forms.Select())
+    ordering = (
+        ('created_at','дата создание'),
+        ('-created_at','дата создание (по убыванию)'),
+        ('updated_at','дата обновления'),
+        ('-updated_at', 'дата обновления (по убыванию)'),
+        ('rate','рейтинг'),
+        ('-rate','рейтинго (по убыванию)'),
+    )
+    ordering = forms.ChoiceField(
+        choices=ordering,required=False,widget=forms.Select()
+    )

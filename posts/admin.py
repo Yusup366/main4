@@ -1,5 +1,5 @@
 from django.contrib import admin
-from posts.models import Post , Categoty,Tag
+from posts.models import Post , Category,Tag
 
 
 # admin.site.register(Post)
@@ -9,7 +9,8 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'rate', 'created_at')
     list_filter = ('category', 'tags')
     search_fields = ('title','description','tage__name')
+    list_editable = ('rate',)
 
-admin.site.register(Categoty)
+admin.site.register(Category)
 admin.site.register(Tag)
 

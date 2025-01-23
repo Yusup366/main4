@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Categoty(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=100)
 
 
@@ -21,7 +21,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=250, null=True, blank=True)
     category = models.ForeignKey(
-        Categoty, on_delete=models.CASCADE, null=True, blank=True)
+        Category, on_delete=models.CASCADE, null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     rate = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
