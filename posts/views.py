@@ -2,7 +2,7 @@ from django.shortcuts import render , HttpResponse, redirect
 import random
 from django.db.models import Q
 from posts.models import Post
-from posts.forms import PostCreateForm , SearchForm
+from posts.forms import PostCreateForm, SearchForm, PostUpdateForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -62,6 +62,22 @@ def posts_create_view(request):
         if not form.is_valid():
             return render(request,'posts/posts_create.html',context = {'form':form})
         elif form.is_valid():
-            form.save()
+            user = request.user
+            Post.objects.create(**form.cleaned_data,author=user)
             return redirect('/posts/')
+
+@login_required(login_url='/login/')
+def posts_update_view(request,post_id):
+    posts = Post.objects.get(id=post_id)
+    if request.method == 'GET':
+        form = PostUpdateForm(instance=posts)
+        return render(request,'posts/post_update.html',context = {'form':form})
+    if request.method == 'POST':
+        form = PostUpdateForm(request.POST, request.FILES ,instance=posts)
+        if not form.is_valid():
+            return render(request,'posts/post_update.html',context = {'form':form})
+        elif form.is_valid():
+            form.save()
+            return redirect(f'/posts/{post_id}/')
+
 

@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
-from posts.views import main_view , posts_list_view, posts_detail_view, posts_create_view
-from user.views import register_view , login_view , logout_view
+from posts.views import main_view , posts_list_view, posts_detail_view, posts_create_view, posts_update_view
+from user.views import register_view , login_view , logout_view, profile_view
 from django.conf.urls.static import static
 
 
@@ -18,5 +18,7 @@ urlpatterns = (
      path('register/',register_view),
      path('login/',login_view),
      path('logout/',logout_view),
+     path('profile/',profile_view),
+     path('posts/update/<int:post_id>/',posts_update_view),
     ]
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
